@@ -208,41 +208,65 @@ class IntroductionScreenState extends State<IntroductionScreen> {
               onPageChanged: widget.onChange,
             ),
           ),
+          SizedBox(15),
+          Expanded(
+            flex: widget.dotsFlex,
+            child: Center(
+              child: widget.isProgress
+                  ? DotsIndicator(
+                dotsCount: widget.pages.length,
+                position: _currentPage,
+                decorator: widget.dotsDecorator,
+              )
+                  : const SizedBox(),
+            ),
+          ),
           Positioned(
             bottom: 16.0,
             left: 16.0,
             right: 16.0,
             child: SafeArea(
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: widget.skipFlex,
-                    child: isSkipBtn
-                        ? skipBtn
-                        : Opacity(opacity: 0.0, child: skipBtn),
-                  ),
-                  Expanded(
-                    flex: widget.dotsFlex,
-                    child: Center(
-                      child: widget.isProgress
-                          ? DotsIndicator(
-                              dotsCount: widget.pages.length,
-                              position: _currentPage,
-                              decorator: widget.dotsDecorator,
-                            )
-                          : const SizedBox(),
+              child: 
+                  Column(children: <Widget>[MaterialButton(
+                    child: Text(
+                      'Get Started',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                          fontFamily: 'Montserrat'),
                     ),
-                  ),
-                  Expanded(
-                    flex: widget.nextFlex,
-                    child: isLastPage
-                        ? doneBtn
-                        : widget.showNextButton
+                    height: 60,
+                    minWidth: 311,
+                    color: Color(0xFF5433FF),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16.0),
+                    ),
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                        return On_Board();
+                      }));
+                    },
+                  ),Row(
+                    children: [
+                      Expanded(
+                        flex: widget.skipFlex,
+                        child: isSkipBtn
+                            ? skipBtn
+                            : Opacity(opacity: 0.0, child: skipBtn),
+                      ),
+                      
+                      Expanded(
+                        flex: widget.nextFlex,
+                        child: isLastPage
+                            ? doneBtn
+                            : widget.showNextButton
                             ? nextBtn
                             : Opacity(opacity: 0.0, child: nextBtn),
-                  ),
-                ],
-              ),
+                      ),
+                    ],
+                  ),],),
+              
             ),
           ),
         ],
